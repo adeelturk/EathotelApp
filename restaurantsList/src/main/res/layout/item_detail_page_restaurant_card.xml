@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="restaurantData"
+            type="com.turk.core.domain.model.Restaurant" />
+    </data>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/ivRestaurantImageCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_12sdp"
+                android:layout_marginVertical="@dimen/_2sdp"
+                app:cardCornerRadius="@dimen/_20sdp"
+                app:cardElevation="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/tvTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/ivRestaurantImage"
+                    android:layout_width="@dimen/_200sdp"
+                    android:layout_height="@dimen/_100sdp"
+                    android:contentDescription="@string/restaurant_image"
+                    android:scaleType="centerCrop"
+                    app:loadImage="@{restaurantData.imageUrl}"
+                    tools:src="@tools:sample/avatars" />
+
+            </androidx.cardview.widget.CardView>
+
+
+            <LinearLayout
+                android:id="@+id/ratingContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/bg_rating"
+                android:backgroundTint="#65000000"
+                android:orientation="horizontal"
+                android:padding="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/ivRestaurantImageCard"
+                app:layout_constraintEnd_toEndOf="@+id/ivRestaurantImageCard"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                >
+
+                <ImageView
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    android:background="@android:drawable/star_on"
+                    android:backgroundTint="@android:color/holo_orange_light" />
+
+                <TextView
+                    android:id="@+id/tvRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@{restaurantData.rating.toString()}"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:paddingEnd="@dimen/_5sdp"
+                    tools:text="4.9" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/TextAppearance.Material3.TitleMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{restaurantData.name}"
+                android:textColor="@color/black"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/chipContainer"
+                app:layout_constraintStart_toStartOf="@+id/ivRestaurantImageCard"
+                tools:text="Firefly Lounge" />
+
+            <LinearLayout
+                android:id="@+id/chipContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/ivRestaurantImageCard">
+
+
+                <TextView
+                    android:id="@+id/tvCuisine"
+                    style="@style/TextAppearance.AppCompat.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_chip"
+                    android:paddingHorizontal="12dp"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:drawableStart="@drawable/cutlery"
+                    android:text="@{restaurantData.cuisine}"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    tools:text="International" />
+
+                <TextView
+                    android:id="@+id/tvPriceLevel"
+                    style="@style/TextAppearance.AppCompat.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_chip"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:paddingVertical="@dimen/_4sdp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:priceLevel="@{restaurantData.priceLevel}"
+                    tools:text="$$" />
+
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="restaurantData"
+            type="com.turk.core.domain.model.RestaurantDetail" />
+
+
+
+        <variable
+            name="cuisineAdapter"
+            type="com.turk.core.ui.GeneralAdapter" />
+
+        <variable
+            name="locationRestAdapter"
+            type="com.turk.core.ui.GeneralAdapter" />
+
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:nestedScrollingEnabled="true"
+            android:orientation="vertical"
+            >
+
+            <ImageView
+                android:id="@+id/ivRestaurantImage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_180sdp"
+                android:contentDescription="@string/restaurant_image"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:loadImage="@{restaurantData.imageUrl}"
+                tools:src="@tools:sample/avatars" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_20sdp"
+                android:background="@drawable/top_rounded_background"
+                app:layout_constraintBottom_toBottomOf="@+id/ivRestaurantImage" />
+
+
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/TextAppearance.AppCompat.Headline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:text="@{restaurantData.name}"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/ratingContainer"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivRestaurantImage"
+                tools:text="Firefly Lounge " />
+
+            <LinearLayout
+                android:id="@+id/ratingContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/bg_rating"
+                android:orientation="horizontal"
+                android:padding="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
+                app:layout_constraintEnd_toEndOf="@+id/descriptionTv"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tvTitle"
+                app:layout_constraintTop_toTopOf="@+id/tvTitle">
+
+                <ImageView
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    android:background="@android:drawable/star_on"
+                    android:backgroundTint="@android:color/holo_orange_light" />
+
+                <TextView
+                    android:id="@+id/tvRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@{restaurantData.rating.toString()}"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    tools:text="4.9" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/descriptionTv"
+                style="@style/TextAppearance.Material3.BodyLarge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:text="@{restaurantData.description}"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                tools:text="Firefly is an effortlessly chic, urban lounge by the poolside. Organic and comfortable, it is an escape of soothing colors and plush seating, ideal for lounging or dining in outdoors." />
+
+
+            <TextView
+                android:id="@+id/tvPriceLevel"
+                style="@style/TextAppearance.Material3.TitleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_chip_blue"
+                android:paddingHorizontal="@dimen/_18sdp"
+                android:paddingVertical="@dimen/_6sdp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/descriptionTv"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionTv"
+                app:priceLevel="@{restaurantData.priceLevel}"
+                tools:text="$$" />
+
+            <TextView
+                android:id="@+id/cusineDetail"
+                style="@style/TextAppearance.Material3.TitleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:background="@drawable/bg_chip_pale"
+                android:paddingHorizontal="@dimen/_18sdp"
+                android:paddingVertical="@dimen/_6sdp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:drawableStart="@drawable/cutlery"
+                android:drawablePadding="@dimen/_5sdp"
+                app:layout_constraintStart_toEndOf="@+id/tvPriceLevel"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionTv"
+                android:text="@{restaurantData.cuisineDetail}"
+                tools:text="Italian Fine Dining" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/location"
+                app:layout_constraintBottom_toBottomOf="@+id/addressDescriptionTv"
+                app:layout_constraintStart_toStartOf="@+id/tvPriceLevel"
+                app:layout_constraintTop_toTopOf="@+id/addressTv" />
+
+            <TextView
+                android:id="@+id/addressTv"
+                style="@style/TextAppearance.Material3.BodyLarge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:text="@{restaurantData.location}"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/arrowIcn"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/tvPriceLevel"
+                tools:text="Radisson Blue Hotel, Business Bay" />
+
+
+            <TextView
+                android:id="@+id/addressDescriptionTv"
+                style="@style/TextAppearance.Material3.BodyLarge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:text="@string/address_description"
+                android:textColor="@color/black"
+
+                app:layout_constraintEnd_toStartOf="@+id/arrowIcn"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/addressTv"
+                tools:text="See venue's adress in google maps" />
+
+
+            <ImageView
+                android:id="@+id/arrowIcn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/right_arrow"
+                app:layout_constraintBottom_toBottomOf="@+id/addressDescriptionTv"
+                app:layout_constraintEnd_toEndOf="@+id/descriptionTv"
+                app:layout_constraintTop_toTopOf="@+id/addressTv" />
+
+
+            <ImageView
+                android:id="@+id/menuIc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/menu"
+                app:layout_constraintBottom_toBottomOf="@+id/restMenuDescriptionTv"
+                app:layout_constraintStart_toStartOf="@+id/tvPriceLevel"
+                app:layout_constraintTop_toTopOf="@+id/restMenu" />
+
+            <TextView
+                android:id="@+id/restMenu"
+                style="@style/TextAppearance.Material3.BodyLarge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:text="@string/restaurant_menu"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/arrowIcn"
+                app:layout_constraintStart_toEndOf="@+id/menuIc"
+                app:layout_constraintTop_toBottomOf="@+id/addressDescriptionTv" />
+
+            <TextView
+                android:id="@+id/restMenuDescriptionTv"
+                style="@style/TextAppearance.Material3.BodyLarge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:text="@string/address_description"
+                android:textColor="@color/black"
+
+                app:layout_constraintEnd_toStartOf="@+id/arrowIcnMenu"
+                app:layout_constraintStart_toEndOf="@+id/menuIc"
+                app:layout_constraintTop_toBottomOf="@+id/restMenu"
+                tools:text="See venue's adress in google maps" />
+
+
+            <ImageView
+                android:id="@+id/arrowIcnMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/right_arrow"
+                app:layout_constraintBottom_toBottomOf="@+id/restMenuDescriptionTv"
+                app:layout_constraintEnd_toEndOf="@+id/descriptionTv"
+                app:layout_constraintTop_toTopOf="@+id/restMenu" />
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:background="@drawable/bg_round_blue"
+                android:orientation="vertical"
+                android:paddingVertical="@dimen/_15sdp"
+                app:layout_constraintEnd_toEndOf="@+id/descriptionTv"
+                app:layout_constraintStart_toStartOf="@+id/descriptionTv"
+                app:layout_constraintTop_toBottomOf="@+id/restMenuDescriptionTv">
+
+                <TextView
+                    style="@style/TextAppearance.Material3.BodyLarge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:text="@string/note_rest"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/arrowIcn"
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPriceLevel"
+                    tools:text="Radisson Blue Hotel, Business Bay" />
+
+
+                <TextView
+                    android:id="@+id/noteFromResturant"
+                    style="@style/TextAppearance.Material3.BodyLarge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:text="@{restaurantData.description}"
+                    android:textColor="@color/black"
+                    tools:text="Firefly is an effortlessly chic, urban lounge by the poolside. Organic and comfortable, it is an escape of soothing colors and plush seating, ideal for lounging or dining in outdoors." />
+
+            </LinearLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tagsRv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="@dimen/_15sdp"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                tools:listitem="@layout/item_tags"
+                tools:itemCount="2"
+                />
+
+
+            <TextView
+                android:id="@+id/otehrCusisinTitle"
+                style="@style/TextAppearance.AppCompat.Headline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/_10sdp"
+                app:cuisineTitle="@{restaurantData.cuisineDetail}"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tagsRv"
+                app:layout_constraintTop_toBottomOf="@+id/tagsRv"
+                tools:text="Other venues with Italian Fine Dining " />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/cuisineRv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/tagsRv"
+                app:layout_constraintStart_toStartOf="@+id/tagsRv"
+                app:layout_constraintTop_toBottomOf="@+id/otehrCusisinTitle"
+                app:showHorizontalList="@{cuisineAdapter}"
+                tools:itemCount="2"
+                android:layout_marginTop="@dimen/_10sdp"
+                tools:listitem="@layout/item_tags" />
+
+
+            <TextView
+                android:id="@+id/otherLocationTitle"
+                style="@style/TextAppearance.AppCompat.Headline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/_15sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tagsRv"
+                app:layout_constraintTop_toBottomOf="@+id/cuisineRv"
+                app:locationTitle="@{restaurantData.location}"
+                tools:text="Other venues in Business Bay" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/locationRv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/view2"
+                app:layout_constraintEnd_toEndOf="@+id/cuisineRv"
+                app:layout_constraintStart_toStartOf="@+id/cuisineRv"
+                app:layout_constraintTop_toBottomOf="@+id/otherLocationTitle"
+                app:layout_constraintVertical_bias="0.0"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:showHorizontalList="@{locationRestAdapter}"
+                tools:itemCount="2"
+                tools:listitem="@layout/item_tags" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
