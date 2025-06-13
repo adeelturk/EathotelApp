@@ -26,7 +26,7 @@
         android:paddingVertical="@dimen/_6sdp"
         android:text="@{tag}"
         android:textColor="@color/black"
-        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_margin="@dimen/_8sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Good for Brunch" />
