@@ -12,6 +12,7 @@ interface HotelApiService {
     @GET("restaurants")
     suspend fun getRestaurants(
         @Query("region_id") regionId: String,
+        @Query("q") searchQuery: String,
     ): Response<RestaurantDto>
 
     @GET("restaurants/{id}")

@@ -17,10 +17,10 @@ import kotlinx.coroutines.flow.onStart
 class RestaurantDataSourceImpl(private val apiService: HotelApiService) : RestaurantDataSource {
 
    private var cacheDataList: List<Restaurant> = arrayListOf()
-    override fun getRestaurants(): Flow<Result<List<Restaurant>, ErrorEntity>> {
+    override fun getRestaurants(searchQuery:String): Flow<Result<List<Restaurant>, ErrorEntity>> {
 
         return flow {
-            emit(apiService.getRestaurants("3906535a-d96c-47cf-99b0-009fc9e038e0").asResult {
+            emit(apiService.getRestaurants(regionId = "3906535a-d96c-47cf-99b0-009fc9e038e0",searchQuery=searchQuery).asResult {
                 cacheDataList =  it.data.map {
                     it.mapToRestaurant()
                 }

@@ -22,11 +22,10 @@ class RestaurantViewModel(
 
         when (event) {
             is RestaurantEvent.FetchRestaurants -> {
-                getRestaurants()
+                getRestaurants(event.searchQuery)
             }
 
             is RestaurantEvent.FetchRestaurantDetailById->{
-
                 getRestaurantDetailById(event.id)
             }
 
@@ -36,13 +35,13 @@ class RestaurantViewModel(
     private val _restaurantListState: MutableStateFlow<RestaurantsListState> =
         MutableStateFlow(RestaurantsListState.Nothing)
     val restaurantListState = _restaurantListState.asStateFlow().onStart {
-        getRestaurants()
+        getRestaurants("")
     }
 
 
-    private fun getRestaurants() {
+    private fun getRestaurants(searchQuery:String) {
 
-        getRestaurantsListUseCase().onEach {
+        getRestaurantsListUseCase(searchQuery).onEach {
             when (it) {
                 is Result.Error -> {
                     _restaurantListState.value = RestaurantsListState.Error(it.error)

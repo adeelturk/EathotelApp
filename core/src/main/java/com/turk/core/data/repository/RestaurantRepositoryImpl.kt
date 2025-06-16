@@ -6,8 +6,8 @@ import com.turk.core.domain.repository.RestaurantRepository
 class RestaurantRepositoryImpl(private val restaurantDataSource: RestaurantDataSource) :
     RestaurantRepository {
 
-    override fun getRestaurants() =
-        restaurantDataSource.getRestaurants()
+    override fun getRestaurants(searchQuery:String) =
+        restaurantDataSource.getRestaurants(searchQuery)
 
 
     override fun getRestaurantDetailById(restaurantId: String) =
